@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Events</title>
+
+  <style>
+    #canvas {
+      border: 1px black solid;
+    }
+  </style>
+
+</head>
+<body>
+
+
+
+
+Choose the color:
+<input type="color" id="colorInput" value="#000000">
+
+<br/>
+<br/>
+Choose the radius:
+<input type="range" id="radiusInput" min="1" max="25" value="5">
+
+<br/>
+<br/>
+<P> Drag the mouse on the canvas: </P>
+<canvas id="canvas" height="400" width="400"></canvas>
+
+
+
+<script>
+  var colorInput = document.getElementById("colorInput");
+  var radiusInput = document.getElementById("radiusInput");
+
+  var canvas = document.getElementById("canvas");
+  var context = canvas.getContext("2d");
+  
+  var mousedown = false 
+  canvas.addEventListener("mousedown", function() {
+    mousedown = true
+  });
+  canvas.addEventListener("mouseup", function() {
+    mousedown = false 
+  })
+  canvas.addEventListener("mousemove", function() {
+    if (!mousedown) { return; }
+    // event is a built-in variable, contains the event that triggered this function
+    // get the x, y location of the event
+    var x = event.offsetX;
+    var y = event.offsetY;   //offsetX, offsetY, may not work in older browsers
+    var radius = radiusInput.value     
+
+    //Draw a small circle centered under the mouse click
+    context.beginPath();
+    context.arc(x, y, radius, 0, 2*Math.PI);
+    myColor = colorInput.value;
+    context.strokeStyle = myColor;
+    context.stroke()
+  })
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
